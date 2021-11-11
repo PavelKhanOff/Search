@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search
+  labels:
+    app: search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: search
+  template:
+    metadata:
+      labels:
+        pod: search
+    spec:
+      containers:
+        - name: search
+          image: eduoneprod/search
+          ports:
+            - containerPort: 9100
+          resources: { }
+          env:
+            - name: ELASTIC_HOST
+              value: elasticsearch.kube-logging
+      restartPolicy: Always
+
+status: {}
